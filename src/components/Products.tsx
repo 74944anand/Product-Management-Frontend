@@ -59,7 +59,9 @@ const Products = () => {
       );
       if (response.data) {
         alert("Product Deleted Successfully!");
-        navigate("/products");
+        setTimeout(() => {
+          navigate("/products");
+        }, 2000);
       }
     } else {
       alert("Product is safe!");

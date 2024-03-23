@@ -38,7 +38,9 @@ const Categories = () => {
       );
       if (response.data) {
         alert("Category Deleted Successfully!");
-        navigate("/categories");
+        setTimeout(() => {
+          navigate("/categories");
+        }, 2000);
       }
     } else {
       alert("Category is safe!");
