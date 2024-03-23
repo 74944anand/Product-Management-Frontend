@@ -11,7 +11,7 @@ const AddNewCategory = () => {
   const [category, setCategory] = useState<Category>({
     name: "",
   });
-console.log(category);
+  console.log(category);
 
   const addNewCategory = async () => {
     try {
@@ -24,10 +24,12 @@ console.log(category);
           },
         }
       );
-      alert(`Successfully added category`);
-      setTimeout(() => {
-        navigate("/categories");
-      }, 2000);
+      if (response.data) {
+        alert(`Successfully added category`);
+        setTimeout(() => {
+          navigate("/categories");
+        }, 2000);
+      }
     } catch (err) {
       console.log("Error adding new category");
     }

@@ -57,8 +57,10 @@ const Products = () => {
       const response = await axios.delete(
         `https://product-management-backend-ca7m.onrender.com/products/${prodId}`
       );
-      alert("Product Deleted Successfully!");
-      navigate("/products");
+      if (response.data) {
+        alert("Product Deleted Successfully!");
+        navigate("/products");
+      }
     } else {
       alert("Product is safe!");
     }

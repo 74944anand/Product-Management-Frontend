@@ -15,8 +15,7 @@ interface Product {
 }
 
 const EditProd = () => {
-
-    const navigate=useNavigate();
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [categories, setCategories] = useState<Category[]>([]);
   const [product, setProduct] = useState<Product>({
@@ -69,10 +68,12 @@ const EditProd = () => {
           },
         }
       );
-      alert(`Successfully updated product`);
-      setTimeout(()=>{
-        navigate("/products")
-      },2000);
+      if (response.data) {
+        alert(`Successfully updated product`);
+        setTimeout(() => {
+          navigate("/products");
+        }, 2000);
+      }
     } catch (error) {
       console.error("Error saving changes:", error);
     }

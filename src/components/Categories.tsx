@@ -36,8 +36,10 @@ const Categories = () => {
       const response = await axios.delete(
         `https://product-management-backend-ca7m.onrender.com/categories/${catId}`
       );
-      alert("Category Deleted Successfully!");
-      navigate("/categories");
+      if (response.data) {
+        alert("Category Deleted Successfully!");
+        navigate("/categories");
+      }
     } else {
       alert("Category is safe!");
     }
@@ -46,7 +48,12 @@ const Categories = () => {
   return (
     <div>
       <div className="text-center">
-        <button className="btn btn-primary" onClick={()=>navigate("/category/new")}>Add Category</button>
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate("/category/new")}
+        >
+          Add Category
+        </button>
       </div>
       <table className="table table-striped">
         <thead>

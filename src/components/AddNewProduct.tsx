@@ -51,10 +51,12 @@ const AddNewProduct = () => {
           },
         }
       );
-      alert(`Successfully added product`);
-      setTimeout(() => {
-        navigate("/products");
-      }, 2000);
+      if (response.data) {
+        alert(`Successfully added product`);
+        setTimeout(() => {
+          navigate("/products");
+        }, 2000);
+      }
     } catch (error) {
       console.error("Error adding product:", error);
     }

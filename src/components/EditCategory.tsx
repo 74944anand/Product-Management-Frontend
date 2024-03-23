@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 interface Category {
@@ -33,7 +33,7 @@ const EditCategory = () => {
   useEffect(() => {
     fetchCategory();
   }, []);
-console.log(category);
+  console.log(category);
 
   const saveChanges = async () => {
     try {
@@ -46,10 +46,12 @@ console.log(category);
           },
         }
       );
-      alert(`Successfully updated category`);
-      setTimeout(() => {
-        navigate("/categories");
-      }, 2000);
+      if (response.data) {
+        alert(`Successfully updated category`);
+        setTimeout(() => {
+          navigate("/categories");
+        }, 2000);
+      }
     } catch (error) {
       console.error("Error saving changes:", error);
     }
