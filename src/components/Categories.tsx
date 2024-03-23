@@ -66,7 +66,7 @@ const Categories = () => {
         </thead>
         <tbody>
           {categories.map((category) => (
-            <tr>
+            <tr key={category.id}>
               <td>{category.id}</td>
               <td>{category.name}</td>
               <td>
