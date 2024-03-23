@@ -49,12 +49,13 @@ const Categories = () => {
     <div>
       <div className="text-center">
         <button
-          className="btn btn-primary"
+          className="btn btn-primary mt-2"
           onClick={() => navigate("/category/new")}
         >
           Add Category
         </button>
       </div>
+      <hr />
       <table className="table table-striped">
         <thead>
           <tr>
