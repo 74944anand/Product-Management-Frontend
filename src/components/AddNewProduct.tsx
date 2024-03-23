@@ -38,8 +38,6 @@ const AddNewProduct = () => {
     fetchCategories();
   }, []);
 
-  console.log(categories);
-
   const addNewProduct = async () => {
     try {
       const response = await axios.post(
@@ -53,9 +51,7 @@ const AddNewProduct = () => {
       );
       if (response.data) {
         alert(`Successfully added product`);
-        setTimeout(() => {
-          navigate("/products");
-        }, 2000);
+        navigate("/products");
       }
     } catch (error) {
       console.error("Error adding product:", error);

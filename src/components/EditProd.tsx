@@ -55,7 +55,6 @@ const EditProd = () => {
   if (!product) {
     return <div>Loading...</div>;
   }
-  console.log(product);
 
   const saveChanges = async () => {
     try {
@@ -70,9 +69,7 @@ const EditProd = () => {
       );
       if (response.data) {
         alert(`Successfully updated product`);
-        setTimeout(() => {
-          navigate("/products");
-        }, 2000);
+        navigate("/products");
       }
     } catch (error) {
       console.error("Error saving changes:", error);

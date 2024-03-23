@@ -31,16 +31,16 @@ const Categories = () => {
 
   const handleDelete = async (catId: number) => {
     const check = confirm("Are you sure to delete this category?");
-    console.log(check);
     if (check) {
-      const response = await axios.delete(
-        `https://product-management-backend-ca7m.onrender.com/categories/${catId}`
-      );
-      if (response.data) {
-        alert("Category Deleted Successfully!");
-        setTimeout(() => {
-          navigate("/categories");
-        }, 2000);
+      try {
+        await axios.delete(
+          `https://product-management-backend-ca7m.onrender.com/categories/${catId}`
+        );
+        alert("Category deleted successfully!");
+        window.location.reload();
+      } catch (error) {
+        console.error("Error deleting category:", error);
+        alert("Failed to delete category. Please try again.");
       }
     } else {
       alert("Category is safe!");

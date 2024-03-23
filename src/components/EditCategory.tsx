@@ -33,7 +33,6 @@ const EditCategory = () => {
   useEffect(() => {
     fetchCategory();
   }, []);
-  console.log(category);
 
   const saveChanges = async () => {
     try {
@@ -48,9 +47,7 @@ const EditCategory = () => {
       );
       if (response.data) {
         alert(`Successfully updated category`);
-        setTimeout(() => {
-          navigate("/categories");
-        }, 2000);
+        navigate("/categories");
       }
     } catch (error) {
       console.error("Error saving changes:", error);
