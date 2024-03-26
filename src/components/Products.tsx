@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,16 +13,36 @@ const Products = () => {
   const [products, setProducts] = useState<MyProd[]>([]);
   const [pageCount, setPageCount] = useState(0);
   const [pageNo, setPageNo] = useState(1);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
   const fetchProducts = async (page: number) => {
-    const response = await axios.get(
-      `https://product-management-backend-ca7m.onrender.com/products/${page}`
-    );
-    setProducts(response.data.data);
-    setPageCount(response.data.total_pages);
+    try {
+      const response = await axios.get(
+        `https://product-management-backend-ca7m.onrender.com/products/${page}`
+      );
+      setProducts(response.data.data);
+      setPageCount(response.data.total_pages);
+      setErrorMessage("");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          setErrorMessage(
+            `Failed to fetch products. Please try again.`
+          );
+        } else if (axiosError.request) {
+          setErrorMessage("No response received from the server.");
+        } else {
+          setErrorMessage("Error setting up the request.");
+        }
+      } else {
+        setErrorMessage("An error occurred while fetching data.");
+      }
+    }
   };
+
   useEffect(() => {
     fetchProducts(1);
   }, []);
@@ -54,12 +74,16 @@ const Products = () => {
     const check = confirm("Are you sure to delete this product?");
     console.log(check);
     if (check) {
-      const response = await axios.delete(
-        `https://product-management-backend-ca7m.onrender.com/products/${prodId}`
-      );
-      if (response.data) {
-        alert("Product Deleted Successfully!");
-        window.location.reload();
+      try {
+        const response = await axios.delete(
+          `https://product-management-backend-ca7m.onrender.com/products/${prodId}`
+        );
+        if (response.data) {
+          alert("Product Deleted Successfully!");
+          window.location.reload();
+        }
+      } catch (error) {
+        alert("An error occurred while deleting the product.");
       }
     } else {
       alert("Product is safe!");
@@ -68,6 +92,11 @@ const Products = () => {
 
   return (
     <div>
+      {errorMessage && (
+        <div className="alert alert-danger text-center">
+          {errorMessage}
+        </div>
+      )}
       <div className="text-center">
         <button
           className=" btn btn-primary mt-2 "

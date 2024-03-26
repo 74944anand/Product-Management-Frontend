@@ -6,17 +6,22 @@ interface Category {
   id: number;
   name: string;
 }
+
 const Categories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>(""); 
   const navigate = useNavigate();
+
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
         `https://product-management-backend-ca7m.onrender.com/categories`
       );
       setCategories(response.data);
+      setErrorMessage("");
     } catch (error) {
       console.error("Error fetching categories:", error);
+      setErrorMessage("Failed to fetch categories. Please try again.");
     }
   };
 
@@ -30,7 +35,7 @@ const Categories = () => {
   };
 
   const handleDelete = async (catId: number) => {
-    const check = confirm("Are you sure to delete this category?");
+    const check = window.confirm("Are you sure to delete this category?");
     if (check) {
       try {
         await axios.delete(
@@ -49,6 +54,7 @@ const Categories = () => {
 
   return (
     <div>
+      {errorMessage && <div className="alert alert-danger text-center">{errorMessage}</div>}
       <div className="text-center">
         <button
           className="btn btn-primary mt-2"
