@@ -109,6 +109,7 @@ const AddNewProduct = () => {
                 })
               }
             >
+              <option>Select Category</option>
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
